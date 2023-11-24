@@ -84,17 +84,27 @@ def button_click_Times():
 def button_click_Calculte():
     global allnumber,together
     calList.append(allnumber)
-    together = ''.join(calList)
     if any(calList):
-       Calculeted=eval(together)
-       box.configure(text=Calculeted)
+       if calList[-1].isdigit():
+          together = ''.join(calList)
+          Calculeted=eval(together)
+          box.configure(text=Calculeted)
+       else:
+           together = ''.join(calList[:-2])
+           Calculeted=eval(together)
+           box.configure(text=Calculeted)
     else:
         messagebox.showinfo("Warning", "Try click a number Please.")
     box2.configure(text=None)
     calList.clear()
     allnumber=""
     
-    
+def button_click_Clear():
+    global allnumber
+    box.configure(text="=", font=10, background="white")
+    box2.configure(text="[...]", font=10)
+    calList.clear()
+    allnumber=""
 
     
     
@@ -105,6 +115,8 @@ box.grid(column=10,row=1)
 box2=tk.Label(text="[...]", font=10)
 box2.grid(column=11,row=2)
 
+
+buttonClear=tk.Button(root, text="C", border=10, bg="Red", command=button_click_Clear)
 
 button0 = tk.Button(root, text="0", border=5, bg="gray", command=button_click0)
 buttonadd=tk.Button(root,text="+",border=5, bg="white", command=button_click_Add)
@@ -125,6 +137,7 @@ button7 = tk.Button(root, text="7", border=5, bg="gray",command=button_click7)
 button8 = tk.Button(root, text="8", border=5, bg="gray",command=button_click8)
 button9 = tk.Button(root, text="9", border=5, bg="gray",command=button_click9)
 
+buttonClear.grid(column=5, row=1, ipadx=5, ipady=5)
 
 button0.grid(column=1, row=4,ipadx=10,ipady=10)
 buttonadd.grid(column=2, row=4,ipadx=10,ipady=10)
@@ -144,9 +157,6 @@ button6.grid(column=3, row=2,ipadx=10,ipady=10)
 button7.grid(column=1, row=3,ipadx=10,ipady=10)
 button8.grid(column=2, row=3,ipadx=10,ipady=10)
 button9.grid(column=3, row=3,ipadx=10,ipady=10)
-
-
-
 
 
 root.mainloop()
